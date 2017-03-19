@@ -1,8 +1,6 @@
-def get_values_from(val_list: list, index: int) -> tuple:
-    val_col_pair = val_list[index]
-    val = val_col_pair[0]
-    col = val_col_pair[1]
-    return val, col
+def get_values_from(vector: list, index: int) -> tuple:
+    val_col_pair = vector[index]
+    return val_col_pair
 
 
 def sum_matrices(matrix_A: tuple, matrix_B: tuple) -> tuple:

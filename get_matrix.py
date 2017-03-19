@@ -39,10 +39,10 @@ def read_matrix(file_name: str, nr_of_non_null_val_per_line: int) -> tuple:
     for i in range(0, n):
         d_A.append(dictionar[i][i])
         val_col_A.append((0, -(i + 1)))
-        for j in range(1, n + 1):
+        for j in range(0, n):
             if i == j or j not in dictionar[i]:
                 continue
-            val_col_A.append((dictionar[i][j], j))
+            val_col_A.append((dictionar[i][j], j + 1))
     val_col_A.append((0, -(n + 1)))
 
     return (d_A, val_col_A), (d_b, val_col_b)
