@@ -1,6 +1,5 @@
-def get_d_val_col(file_name):
-
-    with open("test.txt") as fd:
+def read_matrix(file_name: str, nr_of_non_null_val_per_line: int) -> tuple:
+    with open(file_name) as fd:
         n = [int(x) for x in next(fd).split()][0]
         next(fd)
         b = [""]
@@ -12,7 +11,7 @@ def get_d_val_col(file_name):
         for line in fd:
             if len(line) <= 1:
                 continue
-            print(line)
+            # print(line)
             split_line = line.split(", ")
             # print split_line[0]
             x = float(split_line[0])
@@ -26,19 +25,20 @@ def get_d_val_col(file_name):
             else:
                 dictionar[i] = {}
                 dictionar[i][j] = x
-            if len(dictionar[i]) > 10:
-                raise Exception(
-                    "Linia {0} are mai mult de 10 elemente nenule!".format(i))
+                if len(dictionar[i]) > nr_of_non_null_val_per_line:
+                    raise Exception("For matrix from file {0} the line {1} has"
+                                    " too much non null elements!"
+                                    .format(file_name, i))
 
     d = []
     val_col = []
-    for i in range(1, n + 1):
+    for i in range(0, n):
         d.append(dictionar[i][i])
-        val_col.append((0, -i))
+        val_col.append((0, -(i + 1)))
         for j in range(1, n + 1):
             if i == j or j not in dictionar[i]:
                 continue
             val_col.append((dictionar[i][j], j))
-    val_col.append((0, -n - 1))
+    val_col.append((0, -(n + 1)))
 
     return d, val_col
