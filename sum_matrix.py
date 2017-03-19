@@ -5,15 +5,11 @@ def get_values_from(val_list: list, index: int) -> tuple:
     return val, col
 
 
-def get_diag_and_vect_of(matrix: tuple) -> tuple:
-    diagonal = matrix[0]
-    vector = matrix[1]
-    return diagonal, vector
-
-
 def sum_matrices(matrix_A: tuple, matrix_B: tuple) -> tuple:
-    diagonal_of_A, vector_of_A = get_diag_and_vect_of(matrix_A)
-    diagonal_of_B, vector_of_B = get_diag_and_vect_of(matrix_B)
+    diagonal_of_A = matrix_A[0]
+    vector_of_A = matrix_A[1]
+    diagonal_of_B = matrix_B[0]
+    vector_of_B = matrix_B[1]
     diagonal_of_sum = []
     vector_of_sum = []
 

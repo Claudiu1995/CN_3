@@ -1,36 +1,66 @@
-def get_val_col_line_for_A(line, val_col_A):
-	for i in range(0, len(val_col)):
-		if val_col[i] == -line:
-			first_index = i
-		if val_col[i] == -line-1:
-			second_index = i 
-			return val_col[first_index+1:second_index-1]
+def get_val_col_pairs_from(matrix: tuple, line: int) -> list:
+    diagonal = matrix[0]
+    vector = matrix[1]
 
-def check_line_B_is_column_A(line_B, val_col_line_for_A):
-	for x in val_col_line_for_A:
-		if line_B == val_col_line_for_A[1]
-			return true
-	return false
+    for i in range(0, len(vector)):
+        if vector[i][1] == -line:
+            first_index = i
+        if vector[i][1] == -line - 1:
+            second_index = i
+            return vector[first_index + 1:second_index]
 
-def get_val_col_column_for_B(coloana_j, val_col_B ):
-	tuplu_linie_valoare
-	for i in range(0, len(val_col_B)):
-		if val_col_B[i][0] < 0:
-			last_line = -val_col_B[i]
-		elif val_col_B[i][1] == coloana_j:
-			val_col_column_for_B.append(x)
-			tuplu_linie_valoare.append(last_line, val_col_B[i][0])
-	return tupl_linie_valoare	
-		
 
-def prod_matr(d_A, val_col_A, d_B, val_col_B, nr_lines_A, nr_columns_A, nr_columns_B):
-	d_prod = []
-	val_col_prod = []
-	for i in range(0, nr_lines_A):
-		val_col.append(0, -(i+1))
-		val_col_line_for_A = get_val_col_line_for_A(i, val_col_A)
-		print(val_col_line_for_A)
-		for j in range(0, nr_columns_B):
-			tuplu_linie_valoare = get_val_column_for_B(j, val_col_B)
-			print(tuplu_linie_valoare)			
-	
+def get_val_line_pairs_from(matrix: tuple, column: int) -> list:
+    diagonal = matrix[0]
+    vector = matrix[1]
+
+    val_col_pairs = []
+    last_line = 0
+    for i in range(0, len(vector)):
+        if vector[i][1] < 0:
+            last_line = -vector[i][1]
+        elif vector[i][1] == column:
+            val_col_pairs.append((vector[i][0], last_line))
+        elif last_line == column:
+            val_col_pairs.append((diagonal[last_line - 1], last_line))
+    return val_col_pairs
+
+
+def get_multiply_result_of(val_col_pairs: list, val_line_pairs: list) -> float:
+    i = 0
+    j = 0
+    n = len(val_col_pairs)
+    m = len(val_line_pairs)
+
+    result = 0
+
+    while i < n and j < m:
+        col = val_col_pairs[i][1]
+        line = val_line_pairs[j][1]
+        if line == col:
+            result = result + val_col_pairs[i][0] * val_line_pairs[j][0]
+            i += 1
+            j += 1
+        elif line < col:
+            j += 1
+        else:
+            i += 1
+
+    return result
+
+
+def prod_matr(matrix_A, matrix_B, no_of_lines_A, no_of_columns_B):
+    diagonal_of_A = matrix_A[0]
+    vector_of_A = matrix_A[1]
+    diagonal_of_B = matrix_B[0]
+    vector_of_B = matrix_B[1]
+
+    diagonal_of_prod = []
+    vector_of_prod = []
+
+    for i in range(0, no_of_lines_A):
+        vector_of_prod.append((0, -(i + 1)))
+        val_col_pairs = get_val_col_pairs_from(i, vector_of_A)
+        for j in range(0, no_of_columns_B):
+            val_line_pairs = get_val_line_pairs_from(vector_of_B, j)
+            result = get_multiply_result_of(val_col_pairs, val_line_pairs)
