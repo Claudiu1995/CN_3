@@ -27,12 +27,7 @@ def read_matrix(file_name: str, nr_of_non_null_val_per_line: int) -> tuple:
                                     " too much non null elements!"
                                     .format(file_name, i))
 
-    d_b = [b[0]]
-    val_col_b = [(0, -1)]
-    for i in range(1, n):
-        val_col_b.append((0, -(i + 1)))
-        val_col_b.append((b[i], 1))
-    val_col_b.append((0, -(n + 1)))
+    d_b, val_col_b = convert_column_vector_to_matrix(b)
 
     d_A = []
     val_col_A = []
@@ -46,3 +41,14 @@ def read_matrix(file_name: str, nr_of_non_null_val_per_line: int) -> tuple:
     val_col_A.append((0, -(n + 1)))
 
     return (d_A, val_col_A), (d_b, val_col_b)
+
+
+def convert_column_vector_to_matrix(array: list):
+    n = len(array)
+    d_b = [array[0]]
+    val_col_b = [(0, -1)]
+    for i in range(1, n):
+        val_col_b.append((0, -(i + 1)))
+        val_col_b.append((array[i], 1))
+    val_col_b.append((0, -(n + 1)))
+    return d_b, val_col_b
