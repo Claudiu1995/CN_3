@@ -4,6 +4,7 @@ from equal_matrix import equals
 from get_matrix import *
 from prod_matrix import multiply_matrices
 from sum_matrix import sum_matrices
+from time import time
 
 
 def main():
@@ -25,15 +26,15 @@ def main():
 
     sum_matrix = sum_matrices(matrix_A, matrix_B)
     print("16%")
-    product_matrix = multiply_matrices(matrix_A, matrix_B, 2017)
+    product_matrix = multiply_matrices(matrix_A, matrix_B)
     print("32%")
-    product_matrix_vect_A = multiply_matrices(matrix_A, vect_x, 1)
+    product_matrix_vect_A = multiply_matrices(matrix_A, vect_x)
     print("48%")
-    product_matrix_vect_B = multiply_matrices(matrix_B, vect_x, 1)
+    product_matrix_vect_B = multiply_matrices(matrix_B, vect_x)
     print("64%")
-    product_matrix_vect_A_plus_B = multiply_matrices(matrix_A_plus_B, vect_x, 1)
+    product_matrix_vect_A_plus_B = multiply_matrices(matrix_A_plus_B, vect_x)
     print("80%")
-    product_matrix_vect_A_ori_B = multiply_matrices(matrix_A_ori_B, vect_x, 1)
+    product_matrix_vect_A_ori_B = multiply_matrices(matrix_A_ori_B, vect_x)
     print("96%")
 
     if equals(matrix_A_plus_B, sum_matrix):
